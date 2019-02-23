@@ -1,0 +1,35 @@
+Header Files
+	hold #defines, typedefs, structs, unions ... stuff you want to use in your code, but don't want to clutter your code up defining
+	can include other headers and libraries in a header file
+
+
+#define <name> <value>
+	by convention, things you define are all caps
+	(and your var/func names are never all caps)
+
+
+#ifndef _NAME_H
+#define _NAME_H
+
+... actual stuff ...
+
+#endif
+
+
+ls
+cat
+grep
+	cat testclient.c | grep portno
+	cat testclient.c | grep a | more
+head
+tail
+less
+more
+pipes |
+
+
+int (*fn) (int) = &plusone;
+printf("%d\n", plusone(1));
+printf("%d\n", fn(1));
+	//prints 2 \n 2
+

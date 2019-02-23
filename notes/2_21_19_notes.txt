@@ -1,0 +1,122 @@
+
+Free:
+Don't:
+	free pointers that were not dynamically allocated
+	free local vars / static vars (i.e. not dynamically allocated)
+
+(Bad!)
+int a = 5;
+int * ptr = &a;
+free(ptr);
+
+
+
+free(p)
+
+p = (*?)malloc(....)
+
+oldspace = realloc(oldspace, ...):
+	malloc new space
+	memcpy
+	free(oldspace)
+	return ptr to new space
+
+
+
+p = realloc(p, ...)
+
+q = -1
+
+q = realloc(p, ...)
+if (q == NULL || q == -1)
+{
+	//uh oh
+}
+
+
+cat more less | > >> grep
+
+
+-const ptrs
+
+int a = 2;
+int b - 3;
+int * ptr0 = &a;
+*ptr0 = 3;
+ptr0 = &b;
+
+
+const int * ptr0 = &a;
+ptr0;
+ptr0 = &b;
+
+... for ptrs:
+const to left of star .. hold value pointed to constant
+const to right of star .. hold address pointed to constant
+(can be both)
+
+
+
+int * const ptr = &a;
+
+*ptr = 5;  //OK
+ptr = &b; //NO-GO
+
+
+
+
+
+struct, enum, union
+
+struct:
+	single name assigned to a collection of variables (potentially of different types)
+	..size is >= sum of sizeof all its elements
+
+enum:
+	alias for a series of ints
+
+	enum boolean {true, false}
+	enum boolean truth = true;
+
+union:
+	{..similar to a struct.. but...}
+	single name assigned to a coolection of types taht acces the same memory
+	..size is of sizeof maximal member
+
+
+file descriptors
+
+
+FDE loop:
+Fetch - 	next instruction is fetched from main mem at address held in PC
+Decode - 	do things necessary to make the loaded instruction runnable (e.g. dereferencing)
+Execute - 	ALU does operation to opeand(s) .. and .. PC is updated
+
+
+
+cat - write some file to stdout
+
+cat <file0> ... [fileN]
+
+
+
+practical use for rfn pointer ... really anything type-neutral
+
+
+
+
+
+__FILE__ 
+
+__LINE__
+
+
+printf("This is file %s at line %d\n", __FILE__, __LINE__);
+
+
+
+// MACROS
+#define name if[a==1]
+
+#define minusone(x) --x
+

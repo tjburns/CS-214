@@ -1,0 +1,226 @@
+//TODO 
+if (malloc == NULL) cases --- DONE
+free all dynamically allocted memory --- DONE
+//DONE
+capitals in later parts of the string
+substring but then differet at the end
+substring but one adds length to the end
+
+
+
+testcase00: simple input, all lowercase, space delimited
+./pointersorter "alpha charlie bravo"
+charlie
+bravo
+alpha
+
+testcase01: simple input, all capital on first char, space delimited
+./pointersorter "Echo Foxtrot Delta"
+Foxtrot
+Echo
+Delta
+
+testcase02: simple input, mixed case on first char, space delimited
+./pointersorter "Gamma julia hector Indigo"
+Indigo
+Gamma
+julia
+hector
+
+testcase03: single character input, space delimited
+./pointersorter "a m u s i n g"
+u
+s
+n
+m
+i
+g
+a
+
+testcase04: testcase00 with mixed delimiters
+./pointersorter "alpha2charlie,bravo"
+charlie
+bravo
+alpha
+
+testcase05: testcase01 with mixed delimiters
+./pointersorter "Echo{Foxtrot-Delta"
+Foxtrot
+Echo
+Delta
+
+testcase06: testcase02 with mixed delimiters
+./pointersorter "Gamma8julia%hector_Indigo"
+Indigo
+Gamma
+julia
+hector
+
+testcase07: testcase 03 with mixed delimiters
+./pointersorter "a^m3u+s/i7n#g"
+u
+s
+n
+m
+i
+g
+a
+
+testcase08: capitals in random parts of the input tokens
+./pointersorter "ALphA zeTA kApPA pSI oMEgA DeltA arandomalllowercaseword"
+DeltA
+ALphA
+zeTA
+pSI
+oMEgA
+kApPA
+arandomalllowercaseword
+
+testcase09: substrings of each other space delimited
+./pointersorter "sub substring substr"
+substring
+substr
+sub
+DeltA
+ALphA
+zeTA
+pSI
+oMEgA
+kApPA
+arandomalllowercaseword
+
+testcase10: repeat words only
+./pointersorter "word word word word"
+word
+word
+word
+word
+
+testcase11: repeat words mixed with normal input
+./pointersorter "rEpEaT lol haHAA SmIle rEpEaT xDD rawR rEpEaT wINK CATFace rEpEaT OmEGALUL"
+SmIle
+OmEGALUL
+CATFace
+xDD
+wINK
+rEpEaT
+rEpEaT
+rEpEaT
+rEpEaT
+rawR
+lol
+haHAA
+
+testcase12: somewhat complex input - has repeats and multiple occurences of substrings with different lengths - mixture of previous cases
+./pointersorter "tHis This thIsthing this TThis thIs thIsthing thIS this thisthing thisThing thisTHing thisTHIng thIsthing this TThisthing TThisthingthing thIsthing" 
+TThisthingthing
+TThisthing
+TThis
+This
+tHis
+thIS
+thIsthing
+thIsthing
+thIsthing
+thIsthing
+thIs
+thisTHIng
+thisTHing
+thisThing
+thisthing
+this
+this
+this
+
+testcase13: same input as testcase12 but with mixed(and sometimes multiple/repeated) delimiters between the tokens to check for errors just in case
+./pointersorter "tHis6\This349thIsthing*this(TThis-thIs=thIsthing5thIS+}Pthis:,,,thisthing.thisThing>?thisTHing thisTHIng/\/\/\thIsthing??this214TThisthing{)[(]TThisthingthing thIsthing" 
+TThisthingthing
+TThisthing
+TThis
+This
+tHis
+thIS
+thIsthing
+thIsthing
+thIsthing
+thIsthing
+thIs
+thisTHIng
+thisTHing
+thisThing
+thisthing
+this
+this
+this
+
+//---EDGE CASES---
+
+testcase14: empty input (prints out nothing then newline)
+./pointersorter "" 
+
+
+testcase15: no input (outputs usage string and exits)
+./pointersorter
+ERROR: Found 0 arguments, was expecting 1.
+Usage: ./pointersorter "input here"
+
+testcase16: too many inputs
+./pointersorter "haha" "this" "is" "wrong"
+ERROR: Found 4 arguments, was expecting 1.
+Usage: ./pointersorter "input here"
+
+testcase17: non-alphabetic input (same as testcase14 for empty input)
+./pointersorter "123%*()+=*-23.>2<]"
+
+
+testcase18: escape characters for bash commands
+./pointersorter "hmm\!wHAT\&Will@happen"
+Will
+wHAT
+hAppen
+hmm
+
+testcase19: potential escape character errors
+./pointersorter "wat\ Does\t\"his\rDO\bhUh"
+Does
+wat
+t
+rDO
+his
+bhuh
+
+testcase20: escape characters continued with multiple quotes included (the "null terminator" character here is just interpreted as two seperate characters \ and 0 and are treated as delimiters)
+./pointersorter "for\'somereason\"people\ thought\0null00\0terminator1\023would\'\"\'beathing"
+would
+thought
+terminator
+somereason
+people
+null
+for
+beathing
+
+testcase21: input not surrounded by quotes (acts as expected)
+./pointersorter 214SHOuld^2:,.?/\.3StiLL[+worK}_-+
+SHOuld
+StiLL
+worK
+
+testcase22: multiple inputs delimited with spaces but not surrounded quotes
+./pointersorter this*[] shouldnt\' wo23Rk
+ERROR: Found 3 arguments, was expecting 1.
+Usage: ./pointersorter "input here"
+
+testcase23: single line of input managed to be delimited through space escape character (intended)
+./pointersorter bBuTT\ ThiS\ should
+ThiS
+should
+bBuTT
+
+testcase24: unescaped quotes in input (note double quotes kinda gets screwy because of an uncloused input stream ~~ not sure how to handle this or if this is an error that needs to be handled --- in this case if a quote is encountered in the input an error could be thrown and the user could be told not to enter quotes? and that could solve it but reduce the functionality of the program)
+./pointersorter "what'll8Happen'''here87^tho??""
+Happen
+what
+tho
+ll
+here

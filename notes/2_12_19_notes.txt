@@ -1,0 +1,62 @@
+Function Pointers
+int somefunction(char a, double b)
+
+int (*fn)(char , double) = somefunction;
+int (*fn)(char, double) = &somefunction; <- degenerate syntax but compiler says ok
+
+somefunction('a', 1.2);
+
+
+
+
+header files
+(definitions)
+#ifndef _HEADER_H
+#define _HEADER_H
+
+#define SOMENAME somevalue
+... all stuff in here ...
+
+#endif
+
+
+macros
+
+#define something(x) x*x
+
+
+
+Pointer ... some number that means ... stuff
+pointers to ... I/O
+
+file descriptor
+
+STDIN
+STDOUT
+STDERR
+
+message[] = "hello";
+write(1, message, 5);	//1 is the file descriptor assigned to standard out ~ 0 is stdin, 2 is stderr
+
+
+I/O types:
+blocking 		what you expect from function call - halts you, runs IO, does not return to you (allow you to execute) until IO is 100% done)
+non-blocking	may return partway through - returns to you when you are next scheduled to run, and tells you how much was finished
+asynchronous
+
+
+
+
+int genericComparator(void * a, void * b, int (*comparator)(void*, void*)) {
+	int relation = 0, v = 0;
+	relation = comparator(a, b);
+
+	return relation;
+}
+
+int compareINT(void*, arg0, arg1) {
+	//comparison of integers??
+}
+
+printf("int compare: %d\n", geenericComparator(void*)ptr0, (void*)ptr1, compareINT));
+printf("double compare: %d\n", geenericComparator(void*)ptr2, (void*)ptr3, compareDBL));

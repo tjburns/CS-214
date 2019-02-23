@@ -1,0 +1,36 @@
+malloc() - dynamic allocation (initialize with bzero or memset if you care)
+calloc() - dynamic allocation that is physically contiguous and initialized to 0
+realloc() - dynamic reallocation of memory with a copy(can be VERY SCARY/DANGEROUS)
+        malloc()
+        memcpy()
+        free()
+free() - dynamic deallocation of dynamically-allocated memory
+
+
+
+printf("Error: testing error stuff... problem in file %s on line %d\n", __FILE__, __LINE__);
+
+
+
+/*stuff about constants and pointers*/
+int a = 4;
+int b = 10;
+const int * ptr0 = &a;
+int * ptr1 = &a;
+
+//same thing
+int const * const ptr2 = &a;
+const int * const ptr2 = &a;
+
+int ** derp = &ptr2;
+
+//*ptr2 = 8;
+//ptr2 = &a;
+
+//ptr0 = &b;
+//*ptr0 = 7
+
+#define UNCHANGING 10
+printf("%d\n", UNCHANGING);
+
+stuff about preprocessor

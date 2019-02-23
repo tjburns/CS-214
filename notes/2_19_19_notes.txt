@@ -1,0 +1,5 @@
+
+Files:
+HDDs can only read or write disk blocks
+- how to have > 1 disk block 'files' ... use multiple "consecutive" blocks
+

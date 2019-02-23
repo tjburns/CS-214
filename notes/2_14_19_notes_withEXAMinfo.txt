@@ -1,0 +1,70 @@
+EXAM 2/26/19
+
+C stuff
+shell commands
+headers, macros
+
+short code, if at all
+
+knowledge | function | operation in practice
+
+
+
+file descriptors
+abstractions that represent IO...
+...allow you to read/write things outside your code (memory space)
+
+read()
+write()
+open()
+close()
+
+stdin
+stdout
+stderr
+
+fopen() <- teh ebil!1!   //his words not mine
+
+
+blocking
+as soon as call is made, interrupts your operation and will not allwo you to run until it is 100% done
+
+non-blocking
+as soon as call is made, interrupts your operation and will return the next time you are scheduled to run.. no matter how much is done 
+(will return how much was done)
+
+asynchronous
+set up call, oncec call is in motion it does not interact with you (except to possibly indicate it is done)
+
+
+
+int buffer[] = "hello out there in TV land";
+int length = 27;
+int written = 0;
+int offset = 0;
+
+... have a file descriptor named fd
+
+int status = 0;
+
+	do {
+		written += status
+		length -= status
+		status = write (fd, buffer+offset, length);
+	} while (status > 0 && status < length && length > 0);
+
+h e l l o   o u t
+0 1 2 3 4 5
+
+
+
+/dir/file.txt
+/dir0file.txt
+
+file.exe
+
+cd ..
+
+cat ../..file.txt
+cat /home/user/person/stuff/thing/file.txt
+
