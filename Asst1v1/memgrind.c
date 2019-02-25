@@ -1,3 +1,9 @@
+/* 
+ * Created by Tom Burns and Andrew Dulichan
+ * CS 214 – Systems Programming, Asst 1
+ * memgrind.c test file for Asst 1
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
