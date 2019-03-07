@@ -1,4 +1,8 @@
-// Header file for mymalloc.c in Asst 1
+/* 
+ * Created by Tom Burns and Andrew Dulichan
+ * CS 214 – Systems Programming, Asst 1
+ * mymalloc.h header file for Asst 1
+ */
 
 #ifndef MYMALLOC_H
 #define MYMALLOC_H
