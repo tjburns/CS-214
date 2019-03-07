@@ -1,0 +1,36 @@
+
+Makefiles
+-automates the compilation process (which can get annoying/difficult/error-prone with lots of dependencies)
+<directive>: |dependency0 ... dependencyN|
+	<cmd>
+
+all <- first directive
+
+clean
+
+"make" with no directive listed will run your first directive (so be sure all is your first directive)
+
+
+... more about makefiles
+
+
+
+
+libraries
+a bunch of compiled C functions that can be used by source files
+-no main
+-compile with -c flag to halt compilation after compile phase
+	emits an object file - e.g.:
+	gcc -c nameoflibrary.c ==> nameoflibrary.o
+-include prototypes for all library functions in a nameoflibrary.h
+
+
+
+
+i-nodes as a general representation strategy
+	make direct mapped pointers point to ... something else
+directories: point to other inodes
+processes?: (/proc) point to decoded OS process information
+devices?:(/dev) point to decoded OS IO device information
+
+i-node: metadata attached to pointers ...
