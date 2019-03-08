@@ -2,4 +2,23 @@
 Files:
 HDDs can only read or write disk blocks
 - how to have > 1 disk block 'files' ... use multiple "consecutive" blocks
+.. where to store 'file' metadata .. on the HDD itself (only memory that is large enough and persistent)
+.. need to have metadata about the file metadata ... so put data about inodes in the superblock
+
+
+HDD areas:
+user data: disk blocks that hold user data
+inode: disk blocks that hold inodes (file metadata)
+super: disk blocks that hold information about inodes (metametadata)
+boot: disk blocks that hold basic drive, OS, and superblock info (metametametadata)
+
+less, more, cat
+
+grep
+
+
+-----
+
+>	redirect ouput to a file (will create file or replace it if it already exists)
+>>	append output to a file (will put data at end of file if it already exists, else it will create it)
 

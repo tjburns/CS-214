@@ -1,0 +1,73 @@
+
+sizeof(metadata) = 16
+malloc(30)
+first fit
+| 16 |  //35\\  | 16 |
+
+if the free space has enough space for a space to be malloc-ed but not enough for 
+a new space of META DATA AND AT LEAST ONE BYTE at the end ==> just scoop it up and give it all to the user
+
+
+
+fragmentation:
+	tendency of when using a resource to break reserved chunks in to smaller and smaller sizes
+
+external fragmentation:
+	- e.g. lots of allocations of size 2 bytes with freed allocations in between
+		- problem is .. if you could sweep together the freed chunks, you would have a lot of useful space
+			= but you can't so even if you have lots of free space over all, you can only use it as the chunks it is allocated in
+
+internal fragmentation: 
+	fragmentation inside the allocated units
+	- e.g. user asks for 30 bytes and you give them 32
+		-problem is .. you allocated the extra 2, so you can't use them elsewhere, but the user won't use them, because they only asked for 30
+
+
+----------------------
+
+// int fd = open("./test.c", O_RDONLY);
+// or O_WONLY, one other
+
+DIR* dd = opendir("./");
+
+*/ OPEN FILE DESCRIPTOR
+if (fd != -1) {
+	printf("opened file!\n");
+
+	int status = 0;
+	char buffer;
+
+	do {
+		status = read(fd, &buffer, 1);
+		printf("%c", buffer);
+	}	while (status > 0)
+}
+
+close(fd);
+/*
+
+// OPEN DIRECTORY DIRECTORY
+if (dd != NULL) {
+	printf("opened directory!\n");
+
+	struct direct* status = NULL;
+
+	status = readdir(dd);
+	while (status != NULL) {
+		
+		//printf("%c", buffer);
+		printf("%s", status->d_name);
+
+		if (status->d_type == DT_DIR){
+			printf("/");
+			//opendir(status->d_name);
+		}
+		printf("\n");
+
+		//open(status->d_name, RD_ONLY);
+
+		status = readdir(dd);
+	}	
+}
+
+close(dd);

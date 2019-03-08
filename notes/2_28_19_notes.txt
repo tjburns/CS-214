@@ -1,0 +1,70 @@
+i-nodes & p-nodes
+
+append & redirect
+>> 	append: redirects STDOUT to end of file without overwrite
+> 	redirect: redirects STDOUT to a file with overwrite
+
+
+read & write --- (non-blocking/blocking behavior)
+
+blocking:
+	write(fd, buffer, 100);
+
+non-blocking (ho-boy):
+
+	int status = -1;
+	int written = 0;
+	int n = ... however much you need to write
+
+	do {
+
+		status = write(fd, buffer+, n-);
+		written += status;
+
+	} while(status != -1 && written < n);
+
+
+
+hellooutthere
+           ^
+
+
+i-nodes & p-nodes
+- provides the file abstraction
+metadata about your 'file'
+	-owner
+	-protections
+	-dates (modified, created, ..etc..)
+list of pointers (addresses) of disk blocks that make up the file
+
+p-node:
+same size as an i-node, but all space is used to hold pointers (either direct, or some amount of indirect)
+
+
+header files
+definitions
+macros
+
+libraries
+Makefiles
+
+headers:
+	definitions (#define)
+	declarations (names .... int a .... typedef, structs, unions, enums)
+		-function prototpes
+
+
+library:
+	runnable implementations of function prototypes
+	no main
+	cna include other headers/libraries
+
+
+
+Makefiles:
+
+
+
+<directive>: |requirement0 ... | 
+	<cmd>
+	
