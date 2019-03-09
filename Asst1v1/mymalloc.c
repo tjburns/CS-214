@@ -48,7 +48,7 @@ void* mymalloc(short size, __FILE__, __LINE__)
     
     // find position for available space to be allocated
     while (TRUE) {
-        if (curr->inuse == 0 && curr->size >= (size + METADATA_SIZE)) {
+        if (curr->inuse == 0 && (size + METADATA_SIZE) <= curr->size) {
             break;
         }
         // reached the end of the array without finding appropriate space for allocation
@@ -61,6 +61,9 @@ void* mymalloc(short size, __FILE__, __LINE__)
         }
     }
 
+    //TODO check if block at end of size free is large enough to fit annother UNALLOCATED block or if that space should be coalesced
+        //also check if header file includes the definitions relied upon
+    
     // ALLOCATE the free space
     curr->size = size;
     curr->inuse = 1;
