@@ -61,9 +61,15 @@ void* mymalloc(short size, __FILE__, __LINE__)
         }
     }
 
-    //TODO check if block at end of size free is large enough to fit annother UNALLOCATED block or if that space should be coalesced
-        //also check if header file includes the definitions relied upon
-    
+    // check if block at end of size free is large enough to fit annother UNALLOCATED block
+        // if not => that space should be coalesced
+    if ((size + METADATA_SIZE + 1 + METADATA_SIZE) < curr->size){
+        curr->size = curr->size - METADATA_SIZE;
+        curr->inuse = 1;
+
+        return (curr + METADATA_SIZE);
+    }
+
     // ALLOCATE the free space
     curr->size = size;
     curr->inuse = 1;
