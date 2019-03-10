@@ -10,7 +10,16 @@
 #define malloc(x) mymalloc(x, __FILE__, __LINE__)
 #define free(x) myfree(x, __FILE__, __LINE__)
 
-static char myblock[4096];
+typedef struct metadata {
+    char inuse;
+    short magicnumber;
+    short size;
+} metadata;
+
+#define METADATA_SIZE sizeof(metadata)
+#define MEM_SIZE 4096
+
+static char myblock[MEM_SIZE];
 
 void* mymalloc(short size, __FILE__, __LINE__);
 
