@@ -130,11 +130,13 @@ void myfree(void* ptr, __FILE__, __LINE__) {
     if (prev != NULL) {
 
         // last memory block in the array is being freed
+        // the MAGIC NUMBER COULD ALSO BE CHECKED to see if it is metadata (in the array)
             // check if the previous block is unallocated => coalesce if so OR set current block to unallocated if not
         if (next > tail && prev->inuse = 1) {
             curr->inuse = 0;
         }
         else if (next > tail && prev->inuse = 0) {
+            prev->size += curr->size + METADATA_SIZE
             curr->magicnumber = 0;
             curr->size = 0;
             curr-> inuse = 0;
@@ -142,7 +144,7 @@ void myfree(void* ptr, __FILE__, __LINE__) {
             curr->NULL;
         }
 
-        // previous and next blocks are allocated => make current block unallocated (don't need to wipe the memory that is 'used' in the allocated block)
+        // previous and next blocks are BOTH allocated => make current block unallocated (don't need to wipe the memory that is 'used' in the allocated block)
         else if (prev->inuse == 1 && next->inuse == 1) {
             curr->inuse == 0;
         }
@@ -180,6 +182,18 @@ void myfree(void* ptr, __FILE__, __LINE__) {
     }
     // beginning of the array is being freed
     else {
-        
+
+        // only two cases possible
+            // next block is allocated
+        if (next->inuse == 1) {
+            curr->inuse = 0;
+        }
+        else if (next->inuse == 0) {
+            curr->size += next->size + METADATA_SIZE;
+            next->magicnumber = 0;
+            next->size = 0;
+            next-> inuse = 0;
+            next = NULL;
+        }
     }
 }
