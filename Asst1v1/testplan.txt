@@ -1,0 +1,16 @@
+Tom Burns and Andrew Dulichan
+03/10/2019
+CS 214 – Systems Programming
+Assignment 1 Test Cases details
+
+We created two test cases of our own (as required) to test our code more completely. These two cases further ensured our code was robust and working correctly.
+
+Workload E
+----------
+
+In this test case we allocate the entire 4090 bytes of the array and then immediately free it (similar to Workload A but one malloc/free operation per run). We use 4090 bytes here because the metadata is 6 bytes (4096 - 6). This test case was chosen because it tests to see if myfree() is properly freeing ALL of the memory that was allocated. If all of the memory that was allocated was not freed in this workload, we would go over the size constraints of our static array upon the second pass of the loop and we would have problems. This test case is important to check because it will test the upper limit of the array's size.  We also tested on this workload if we could malloc any size data after the malloc that filled the array and frees at different points in data, all resulting with the desired error outputs. This should be a stricter test than Workload A as it more thoroughly tests the proper implementation of both mymalloc() and myfree().
+
+Workload F
+----------
+
+In this test case we tested for memory fragmentation as well as different sizing mallocs and filling to capacity (with memory block coalescing testing). Checking for this is a vital part of our code being robust, as the professor described in class. It tests to make sure our code properly coalesces memory when given a size that doesn't have room for another memory block. We started by completetly filling the array with data of size 10 for 256 allocations(total size 16 with meta data), then freeing even positions in the array first,  freeing the odd positions. This checks for any form of possible memory fragmentation because if we did have any fragmentation, we would not be able to use our memory to its full potential. If it was fragmented we would have many adjacent 'free' gaps littered throughout the array due to either malloc or free not following their proper functionalities.

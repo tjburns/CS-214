@@ -1,0 +1,55 @@
+
+--------------------WORKLOAD A----------------------
+
+Average Run Time: 129.400000 microseconds
+
+Memory after run:
+Inuse: 0	Size: 4090	 Magicnumber: 5218
+
+----------------------------------------------------
+
+--------------------WORKLOAD B----------------------
+
+Average Run Time: 182.200000 microseconds
+
+Memory after run:
+Inuse: 0	Size: 4090	 Magicnumber: 5218
+
+----------------------------------------------------
+
+--------------------WORKLOAD C----------------------
+
+Average Run Time: 228.700000 microseconds
+
+Memory after run:
+Inuse: 0	Size: 4090	 Magicnumber: 5218
+
+----------------------------------------------------
+
+--------------------WORKLOAD D----------------------
+
+Average Run Time: 239.120000 microseconds
+
+Memory after run:
+Inuse: 0	Size: 4090	 Magicnumber: 5218
+
+----------------------------------------------------
+
+--------------------WORKLOAD E----------------------
+
+Average Run Time: 247.530000 microseconds
+
+Memory after run:
+Inuse: 0	Size: 4090	 Magicnumber: 5218
+
+-----------------------------------------------
+
+--------------------WORKLOAD F----------------------
+
+Average Run Time: 470.440000 microseconds
+
+Memory after run:
+Inuse: 0	Size: 4096	 Magicnumber: 5218
+
+----------------------------------------------------
+

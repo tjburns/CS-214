@@ -10,107 +10,228 @@
 #include <time.h>
 #include "mymalloc.h"
 
-
-srand(time(NULL));
-struct timeval tv;
-time_t startTime;
-time_t endTime;
-int timeA[100];
-int timeB[100];
-int timeC[100];
-int timeD[100];
-int timeE[100];
-//int timeF[100];
-//int timeG[100];
-
-
-int i, j, k;
-for (i = 0; i < 100; i++) {
-
-    // PART A
-    startTime = tv.tv_sec;
-    for (j = 0; j < 150; j++) {
-        char * a = (char*)malloc(1);
-        free(a);
-    }
-    endTime = tv.tv_sec;
-    timeA[i] = endTime - startTime;
-
-    // PART B
-    startTime = tv.tv_sec;
-    char * b[150];
-    for (j = 0; j < 150; j++) {
-        if ((j+1) % 50 == 0) {
-            for (k = 0; k < 50; k++) {
-                free(b[j]);
-            }
-        }
-        else {
-            b[j] = (char* )malloc(1);
-        }
-    }
-    endTime = tv.tv_sec;
-    timeB[i] = endTime - startTime;
-
-    // PART C
-    startTime = tv.tv_sec;
-    char * c[50];
-    int numAllocs = 0;
-    int numFrees = 0;
-    while (numFrees < 50 && numAllocs < 50) {
-        if (rand() % 2 == 0  && numAllocs < 50) {
-            c[numAllocs] = (char *)malloc(1);
-            numAllocs++;
-        }
-        else if (numFrees < 50 && numAllocs > 0 && numAllocs > numFrees) {
-            free(c[numFrees]);
-            numFrees++;
-        }
-    }
-    endTime = tv.tv_sec;
-    timeC[i] = endTime - startTime;
-
-    // PART D
-    startTime = tv.tv_sec;
-    char * d[50];
-    numAllocs = 0;
-    numFrees = 0;
-    while (numFrees < 50 && numAllocs < 50) {
-        if (rand() % 2 == 0  && numAllocs < 50) {
-            d[numAllocs] = (char *)malloc((rand() % 64) + 1);
-            numAllocs++;
-        }
-        else if (numFrees < 50 && numAllocs > 0 && numAllocs > numFrees) {
-            free(d[numFrees]);
-            numFrees++;
-        }
-    }
-    endTime = tv.tv_sec;
-    timeD[i] = endTime - startTime;
-
+void test() {
+	char * c[50];
+	int numAllocs = 0;
+	int numFrees = 0;
+	while (numFrees < 50 || numAllocs < 50) {
+		if (rand() % 2 == 0  && numAllocs < 50) {
+			printf("ALLOCATING\n");
+			c[numAllocs] = (char *)malloc(1);
+			printMemory();
+			numAllocs++;
+		    	printf("number of allocations: %d\n", numAllocs);
+		    	printf("\n"); 
+		}
+		else if (numFrees < 50 && numAllocs > 0 && numAllocs > numFrees) {
+			printf("FREEING\n");
+		    	free(c[numFrees]);
+		    	printMemory();
+		    	numFrees++;
+		    	printf("number of frees: %d\n", numFrees);
+		    	printf("\n");
+		}
+	}
+}
+void failureCase1() {
+	char * y = (char*)malloc(4097);
+	free(y);
+}
+void failureCase2() {
+	char* p = (char*)malloc(4096-METADATA_SIZE);
+	char * q = (char*)malloc(1);
+	
+	free(p);
+	free(q);
+}
+void failureCase3() {
+	char * p = (char*)malloc(4096);
+	char * q = (char*)malloc(1);
+	
+	free(p);
+	free(q);
 }
 
-// PRINTING RUNTIME MEANS
-totalTime = 0;
-for (i = 0; i < 100; i++) {
-    totalTime += timeA[i];
+void workloadA() {
+	int i;
+	
+	for (i = 0; i < 150; i++) {
+		char * a = (char*)malloc(1);
+		free(a);
+	}
+	
 }
-print("Runtime A MEAN: %f", totalTime/100.0);
 
-totalTime = 0;
-for (i = 0; i < 100; i++) {
-    totalTime += timeB[i];
+void workloadB() {
+	int b;
+	for (b = 0; b < 3; b++) {
+		int i, j;
+		char * b[50];
+		for (i = 0; i < 50; i++) {
+			b[i] = malloc(1);
+		}
+		for (i = 0; i < 50; i++) {
+			free(b[i]);
+		}
+	}
 }
-print("Runtime B MEAN: %f", totalTime/100.0);
 
-totalTime = 0;
-for (i = 0; i < 100; i++) {
-    totalTime += timeC[i];
+void workloadC() {
+	char * c[50];
+	int numAllocs = 0;
+	int numFrees = 0;
+	while (numFrees < 50 || numAllocs < 50) {
+		if (rand() % 2 == 0  && numAllocs < 50) {
+			c[numAllocs] = (char *)malloc(1);
+			numAllocs++; 
+		}
+		else if (numFrees < 50 && numAllocs > 0 && numAllocs > numFrees) {
+		    	free(c[numFrees]);
+		    	numFrees++;
+		}
+	}
 }
-print("Runtime C MEAN: %f", totalTime/100.0);
 
-totalTime = 0;
-for (i = 0; i < 100; i++) {
-    totalTime += timeD[i];
+void workloadD() {
+	char * d[50];
+	int numAllocs = 0;
+	int numFrees = 0;
+	while (numFrees < 50 || numAllocs < 50) {
+		if (rand() % 2 == 0  && numAllocs < 50) {
+		    	d[numAllocs] = (char *)malloc((rand() % 64) + 1);
+		    	numAllocs++;
+		}
+		else if (numFrees < 50 && numAllocs > 0 && numAllocs > numFrees) {
+		    	free(d[numFrees]);
+		    	numFrees++;
+		}
+	}
 }
-print("Runtime D MEAN: %f", totalTime/100.0);
+
+
+void workloadE() {
+	int i;
+	for (i = 0; i < 150; i++) {
+		char * a = (char*)malloc(4090);
+		free(a);
+	}
+}
+
+void workloadF() {
+	char * f[256];
+	int i;
+	for (i = 0; i < 255; i++) {
+		f[i] = (char*)malloc(10);
+	}
+	//f[255] = (char*)malloc(11);
+	f[255] = (char*)malloc(8);
+	for (i = 0; i < 256; i++) {
+		if (i % 2 == 0) {
+			free(f[i]);
+		}
+	}
+	for (i = 0; i < 256; i++) {
+		if (i % 2 == 1) {
+			free(f[i]);
+		}
+	}
+}
+
+int main() {
+
+	srand(time(NULL));
+	struct timeval startTime;
+	struct timeval endTime;
+	double elapsedTime;
+	int i;
+	
+	// TESTING/DEBUGGING
+	//printf("%d\n",sizeof(metadata));
+	//test();
+	//failureCase1();
+	//failureCase2();
+	//failureCase3();
+	//workloadA();
+	//workloadB();
+	//workloadC();
+	//workloadF();
+	//printMemory();
+	
+	
+	printf("\n");
+	printf("--------------------WORKLOAD A----------------------\n\n");
+	gettimeofday(&startTime, 0);
+	for (i = 0; i < 100; i++) {
+	    	workloadA();
+	}
+	gettimeofday(&endTime, 0);
+	elapsedTime = 1000000*endTime.tv_sec + endTime.tv_usec - 1000000*startTime.tv_sec + startTime.tv_usec;
+	printf("Average Run Time: %f microseconds\n", elapsedTime/100);
+	printf("\nMemory after run:\n");
+	printMemory();
+	printf("\n----------------------------------------------------\n\n");
+	
+	printf("--------------------WORKLOAD B----------------------\n\n");
+	gettimeofday(&startTime, 0);
+	for (i = 0; i < 100; i++) {
+	    	workloadB();
+	}
+	gettimeofday(&endTime, 0);
+	elapsedTime = 1000000*endTime.tv_sec + endTime.tv_usec - 1000000*startTime.tv_sec + startTime.tv_usec;
+	printf("Average Run Time: %f microseconds\n", elapsedTime/100);
+	printf("\nMemory after run:\n");
+	printMemory();
+	printf("\n----------------------------------------------------\n\n");
+	
+	
+	printf("--------------------WORKLOAD C----------------------\n\n");
+	gettimeofday(&startTime, 0);
+	for (i = 0; i < 100; i++) {
+	    	workloadC();
+	}
+	gettimeofday(&endTime, 0);
+	elapsedTime = 1000000*endTime.tv_sec + endTime.tv_usec - 1000000*startTime.tv_sec + startTime.tv_usec;
+	printf("Average Run Time: %f microseconds\n", elapsedTime/100);
+	printf("\nMemory after run:\n");
+	printMemory();
+	printf("\n----------------------------------------------------\n\n");
+	
+	printf("--------------------WORKLOAD D----------------------\n\n");
+	gettimeofday(&startTime, 0);
+	for (i = 0; i < 100; i++) {
+	    	workloadD();
+	}
+	gettimeofday(&endTime, 0);
+	elapsedTime = 1000000*endTime.tv_sec + endTime.tv_usec - 1000000*startTime.tv_sec + startTime.tv_usec;
+	printf("Average Run Time: %f microseconds\n", elapsedTime/100);
+	printf("\nMemory after run:\n");
+	printMemory();
+	printf("\n----------------------------------------------------\n\n");
+	
+	printf("--------------------WORKLOAD E----------------------\n\n");
+	gettimeofday(&startTime, 0);
+	for (i = 0; i < 100; i++) {
+	    	workloadE();
+	}
+	gettimeofday(&endTime, 0);
+	elapsedTime = 1000000*endTime.tv_sec + endTime.tv_usec - 1000000*startTime.tv_sec + startTime.tv_usec;
+	printf("Average Run Time: %f microseconds\n", elapsedTime/100);
+	printf("\nMemory after run:\n");
+	printMemory();
+	printf("\n-----------------------------------------------\n\n");
+	
+	printf("--------------------WORKLOAD F----------------------\n\n");
+	gettimeofday(&startTime, 0);
+	for (i = 0; i < 100; i++) {
+	    	workloadF();
+	}
+	gettimeofday(&endTime, 0);
+	elapsedTime = 1000000*endTime.tv_sec + endTime.tv_usec - 1000000*startTime.tv_sec + startTime.tv_usec;
+	printf("Average Run Time: %f microseconds\n", elapsedTime/100);
+	printf("\nMemory after run:\n");
+	printMemory();
+	printf("\n----------------------------------------------------\n\n");
+	
+	
+	return 0;
+}

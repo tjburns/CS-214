@@ -21,8 +21,10 @@ typedef struct metadata {
 
 static char myblock[MEM_SIZE];
 
-void* mymalloc(short size, __FILE__, __LINE__);
+void* mymalloc(short size, char* file, int line);
 
-void myfree(void* ptr, __FILE__, __LINE__);
+void myfree(void* ptr, char* file, int line);
+
+void printMemory();
 
 #endif
