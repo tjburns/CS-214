@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/tjbur/Google Drive/College/Spring 2019/CS 214/Asst2/main.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+time.h
+-
+

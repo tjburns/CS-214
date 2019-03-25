@@ -1,0 +1,24 @@
+programmatically decoding inodes
+dir* opendir(pathname)
+struct dirent* readdir(DIR*)
+
+
+
+HDD access time dominated by ... seek time ~ 70-80ms ... so 7.5*10^-2
+
+CPU clock ... in the single nanoseconds ... 4GHz .. 4 clocks per nano ... so 0.25*10^-9
+
+
+
+//TODO GO OVER SYSTEM LINKS
+symlink (ln) alias for a file ... (doesn't copy the data)
+hard (physical) link -
+sort (symbolic link) - 
+
+chmod ... change permissions on a file (or dir)
+<group> <+/-> <permission>
+a              r
+u              w
+g              x
+o
+

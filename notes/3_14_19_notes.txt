@@ -1,0 +1,42 @@
+
+File permissions
+chmod
+	Mnemonic: <group/user target> <+/-> <permission>
+			  u (user)					w
+			  g (group)					r
+			  o	(other)					x
+			  a  (all)
+
+chmod a+r
+chmod u-r
+
+chmod u-r
+chmod a+r
+
+
+L33t: Octal Code:
+u 	g 	o
+rwx rwx rwx
+101 001 010
+5	4	2
+
+chmod 542 <file>
+
+
+test.c:
+
+	status = write(fd, &towrite, 1);
+
+	while (status > 0 && count < 10) {
+			status = write(fd, towrite+count, 1);
+			++count;
+			printf("%d\n", status);
+	}
+
+	printf("\n");
+
+	close(fd);
+
+
+
+lseek
