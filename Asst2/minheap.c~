@@ -1,0 +1,159 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include "minheap.h"
+#include "buildcodebook.h"
+
+#define LCHILD(x) 2 * x + 1
+#define RCHILD(x) 2 * x + 2
+#define PARENT(x) (x - 1) / 2
+
+
+/*
+    Function to initialize the min heap with size = 0
+*/
+minHeap initMinHeap(int size) {
+    minHeap heap;
+    heap.size = 0;
+    return heap;
+}
+
+/*
+void swap(heapNode *n1, heapNode *n2) {
+    heapNode temp = *n1;
+    *n1 = *n2;
+    *n2 = temp;
+}
+
+/*
+    Heapify function is used to make sure that the heap property is never violated
+    In case of deletion of a node, or creating a min heap from an array, heap property
+    may be violated. In such cases, heapify function can be called to make sure that
+    heap property is never violated
+*/
+void heapify(minHeap *heap, int i) {
+    int smallest = (LCHILD(i) < heap->size && heap->elem[LCHILD(i)].data < heap->elem[i].data) ? LCHILD(i) : i;
+    if(RCHILD(i) < heap->size && heap->elem[RCHILD(i)].data < heap->elem[smallest].data) {
+        smallest = RCHILD(i);
+    }
+    if(smallest != i) {
+        swap(&(heap->elem[i]), &(heap->elem[smallest]));
+        heapify(heap, smallest);
+    }
+}
+*/
+
+void addToHeap(minHeap *heap, input in) {
+    if(heap->size) {
+        heap->elem = realloc(heap->elem, (heap->size + 1) * sizeof(input));
+    } else {
+        heap->elem = malloc(sizeof(input));
+    }
+
+
+    int i = (heap->size)++;
+    if (strcmp(in.word, heap->elem[Parent(i)].word) == 0){
+    	  
+    }
+    while(i && in.count < heap->elem[PARENT(i)].count) {
+        heap->elem[i] = heap->elem[PARENT(i)] ;
+        i = PARENT(i) ;
+    }
+    heap->elem[i] = entry ;
+}
+
+/*
+    Function to delete a node from the min heap
+    It shall remove the root node, and place the last node in its place
+    and then call heapify function to make sure that the heap property
+    is never violated
+*/
+void deleteNode(minHeap *heap) {
+    if(heap->size) {
+        printf("Deleting node %d\n\n", heap->elem[0].data) ;
+        heap->elem[0] = heap->elem[--(heap->size)] ;
+        heap->elem = realloc(heap->elem, heap->size * sizeof(heapNode)) ;
+        heapify(heap, 0) ;
+    } else {
+        printf("\nMin Heap is empty!\n") ;
+        free(heap->elem) ;
+    }
+}
+
+/*
+    Function to get maximum node from a min heap
+    The maximum node shall always be one of the leaf nodes. So we shall recursively
+    move through both left and right child, until we find their maximum nodes, and
+    compare which is larger. It shall be done recursively until we get the maximum
+    node
+*/
+int getMaxNode(minHeap *heap, int i) {
+    if(LCHILD(i) >= heap->size) {
+        return heap->elem[i].data ;
+    }
+
+    int l = getMaxNode(heap, LCHILD(i)) ;
+    int r = getMaxNode(heap, RCHILD(i)) ;
+
+    if(l >= r) {
+        return l ;
+    } else {
+        return r ;
+    }
+}
+
+/*
+    Function to clear the memory allocated for the min heap
+*/
+void deleteMinHeap(minHeap *heap) {
+    free(heap->elem) ;
+}
+
+/*
+    Function to display all the nodes in the min heap by doing a inorder traversal
+*/
+void inorderTraversal(minHeap *heap, int i) {
+    if(LCHILD(i) < heap->size) {
+        inorderTraversal(heap, LCHILD(i)) ;
+    }
+    printf("%d ", heap->elem[i].data) ;
+    if(RCHILD(i) < heap->size) {
+        inorderTraversal(heap, RCHILD(i)) ;
+    }
+}
+
+/*
+    Function to display all the nodes in the min heap by doing a preorder traversal
+*/
+void preorderTraversal(minHeap *heap, int i) {
+    if(LCHILD(i) < heap->size) {
+        preorderTraversal(heap, LCHILD(i)) ;
+    }
+    if(RCHILD(i) < heap->size) {
+        preorderTraversal(heap, RCHILD(i)) ;
+    }
+    printf("%d ", heap->elem[i].data) ;
+}
+
+/*
+    Function to display all the nodes in the min heap by doing a post order traversal
+*/
+void postorderTraversal(minHeap *heap, int i) {
+    printf("%d ", heap->elem[i].data) ;
+    if(LCHILD(i) < heap->size) {
+        postorderTraversal(heap, LCHILD(i)) ;
+    }
+    if(RCHILD(i) < heap->size) {
+        postorderTraversal(heap, RCHILD(i)) ;
+    }
+}
+
+/*
+    Function to display all the nodes in the min heap by doing a level order traversal
+*/
+void levelorderTraversal(minHeap *heap) {
+    int i ;
+    for(i = 0; i < heap->size; i++) {
+        printf("%d ", heap->elem[i].data) ;
+    }
+}

@@ -1,0 +1,37 @@
+//
+// Created by tjbur on 3/24/2019.
+//
+
+#ifndef ASST2_MINHEAP_H
+#define ASST2_MINHEAP_H
+
+typedef struct minHeap {
+    int size;
+    heapNode *elem;
+} minHeap;
+
+minHeap initMinHeap(int size);
+
+/*
+void swap(heapNode *n1, heapNode *n2);
+
+void heapify(minHeap *heap, int i);
+
+void addToHeap(minHeap *heap, input in);
+*/
+
+void deleteNode(minHeap *heap);
+
+int getMaxNode(minHeap *heap, int i);
+
+void deleteMinHeap(minHeap *heap);
+
+void inorderTraversal(minHeap *heap, int i);
+
+void preorderTraversal(minHeap *heap, int i);
+
+void postorderTraversal(minHeap *heap, int i);
+
+void levelorderTraversal(minHeap *heap);
+
+#endif //ASST2_MINHEAP_H

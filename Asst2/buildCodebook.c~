@@ -1,0 +1,51 @@
+
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include "buildCodebook.h"
+#include "minheap.h"
+
+void countWords(char *file) {
+
+	int fd = open(file, O_RDONLY);
+
+	int status = -1;
+	char buffer = '\0';
+	char * tempString = "";
+	
+	minHeap *wordHeap = initMinHeap(0);
+
+	if (fd != -1) {
+		printf("opened file!\n");
+
+		int status = 0;
+		char buffer;
+
+		do {
+				status = read(fd, &buffer, 1);
+				//printf("%c\n", buffer);
+				
+				// control code is found
+				if (buffer <= 32 || buffer == 127){
+					input tempWord;
+					tempWord.word = tempString;
+					tempWord.count = 0;
+					addToHeap(wordHeap, tempWord);
+					
+					tempWord.word = buffer;
+					tempWord.count = 0;
+					addToHeap(wordHeap, tempWord);	
+					
+					tempString = "";			
+				}
+				else {
+					tempString += buffer;
+				}
+		} while (status > 0);
+	}
+	
+	preorderTraversal(wordHeap, 0);
+
+	close(fd);
+}

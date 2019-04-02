@@ -1,0 +1,103 @@
+Created by Tom Burns and Andrew Dulichan
+04/01/2019
+CS 214 Systems Programming
+
+Test cases documentation for Asst2
+----------------------------------
+
+We wanted our project to be very robust and able to handle many different kinds of test cases from the ASCII and Extended ASCII table. As such, we put our code through many forms of testing and we have chosen 10 of our best test cases to document and explain in this test case documentation file. Note that each test case in this documentation file is enclosed within double quotes "" for display purposes only (to show where the test case text begins and ends; those double quotes are not part of the test case).
+
+Test case #1
+------------
+
+Our first test case we utilized is simply a blank file. We were told that if our program encounters a blank file, we should print out the empty directory and return. Handling this properly is important as it is kind of a "base case" for the program. You can't create a Huffman codebook with no data to process.
+
+------------
+
+Test case #2
+------------
+
+"
+Alice In Wonderland: The Sequel
+"
+
+Our second test case tests for a newline at the start and end of the file with a standard ASCII table character string in-between them. Properly handling the newline at the start and end of the file is the more important part of the test case here.
+
+------------
+
+Test case #3
+------------
+
+"    	Cows are the l33test 1337!?!?!?	    "
+
+Our third test case tests for four space characters at the start of the file, followed by a tab and then some standard ASCII table character string. We chose the amount of four space characters because four spaces equals the spacing amount of a tab in the Notepad program. This space equivalence would be handy to test for to see if it is represented properly after our codebook is processed. After the string, we follow with a second tab and another four space characters.
+
+------------
+
+Test case #4
+------------
+
+"	
+
+	"
+
+Our fourth test case tests for a tab, newline, newline and tab, in that order. This case is nice to test because it checks if consecutive control characters are handled properly.
+
+------------
+
+Test case #5
+------------
+
+"Systems Programming is an incredible class."
+
+Our fifth test case is a simple sentence string. Meant to test the basic functionality of our program.
+
+------------
+
+Test case #6
+------------
+
+"IHaveNoIdeaWhyThisSentenceIsMissingSpaces? "
+
+Our sixth test case tests for a string of characters without spaces. A lone space character is also included at the end of the string, which means we should have two tokens altogether.
+
+------------
+
+Test case #7
+------------
+
+"\t\n\r\0"
+
+Our seventh test case is a string of control codes written out in printable form. These are essentially just standard ASCII table characters. Good to check to see if they are tokenized properly versus the actual control codes themselves.
+
+------------
+
+Test case #8
+------------
+
+"I like ÅSCII and Ëxtended ASCII taþle characters mixed togÆther >:D"
+
+Our eigth test case handles a mixture of ASCII and Extended ASCII table characters. An ASCII representation of an emoji is thrown in for good measure!
+
+------------
+
+Test case #9
+------------
+
+"»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»"
+
+Our ninth test case processes the right double angle quotes character 1000 times. Meant to check to see if an Extended ASCII table character could be handled by our program in bulk.
+
+------------
+
+Test case #10
+-------------
+
+"01001001 01110100 00100000 01110111 01100001 01110011 00100000 00110011 00110000 00100000 01111001 01100101 01100001 01110010 01110011 00100000 01100001 01101110 01100100 00100000 00110010 00110000 00110000 00100000 01100100 01100001 01111001 01110011 00100000 01100001 01100111 01101111 00101110 00100000 01001111 01110101 01110010 00100000 01101100 01100001 01101110 01100100 00100000 01101000 01100001 01100100 00100000 01100110 01100001 01101100 01101100 01100101 01101110 00100000 01110101 01101110 01100100 01100101 01110010 00100000 01100001 01110100 01110100 01100001 01100011 01101011 00100000 01100001 01101110 01100100 00100000 01110100 01101000 01100101 01110010 01100101 00100000 01110111 01100001 01110011 00100000 01101110 01101111 01110100 00100000 01101101 01110101 01100011 01101000 00100000 01110111 01100101 00100000 01100011 01101111 01110101 01101100 01100100 00100000 01100100 01101111 00101110 00100000 01001100 01101001 01110100 01110100 01101100 01100101 00100000 01100100 01101001 01100100 00100000 01110111 01100101 00100000 01101011 01101110 01101111 01110111 00100000 01110100 01101000 01100001 01110100 00100000 01101111 01110101 01110010 00100000 01101010 01101111 01110101 01110010 01101110 01100101 01111001 00100000 01101000 01100001 01100100 00100000 01101010 01110101 01110011 01110100 00100000 01100010 01100101 01100111 01110101 01101110 00101110 00101110 00101110"
+
+Our tenth and final test case is testing for binary format in a text file. The above binary code is a representation of the text paragraph, "It was 30 years and 200 days ago. Our land had fallen under attack and there was not much we could do. Little did we know that our journey had just begun...".
+
+-------------
+
+Included is a directory named /level0/ which contains subdirectories and multiple files inside those directories all with different testcases such as the above to ensure the recursive operation is working as intended.
+There are 3 levels to this directory and the program runs on each even when there are multiple files inside, as expected of its functionality.

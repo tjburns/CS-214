@@ -1,0 +1,14 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include "avlTree.h"
+#include "mintree.h"
+#include "buildCodebook.h"
+
+int main (int argc, char ** argv) {
+
+	buildCodebook("./test.txt");	
+	
+	return 0;
+}

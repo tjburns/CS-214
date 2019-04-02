@@ -1,0 +1,57 @@
+lseek - move the position of your cursor/handle in a ifle 
+		find the length of a file
+		move the next file IO operation
+		0-pad out some amount of space (does not actually write 0s until you write to the file)
+
+open("./output", O_CREAT | O_RDWR, 00644)
+
+u  	g 	o
+RWX	RWX	RWX
+110	100	100
+6	4	4
+
+
+
+Process
+	OS abstraction for running code
+
+	address space - memory segment allocated to the Proc
+	.. also ... a PCB is allocated in OS space
+	Process Control Block
+		holds OS metadata about your Proc like
+		PID - Process IDentifier
+		PPID - Parent Process IDentifier
+		open file descriptors
+		signal disposition
+
+
+	fork() ... called once, returns twice (to parent & to child)
+		returns child's PID to parent
+		returns 0 to child
+
+	exec() ... called once in child, but does not return (in normal operation)
+		
+
+
+int pid = fork()
+
+if (pid == 0) {
+	// do child stuff
+}
+
+else if (pid < 0) {
+	//oh noes!!
+}
+else {
+	// do parent stuff
+}
+
+exec("./a.out")
+
+
+
+int pid = fork();
+
+if (pid == 0) {
+	exec("./a.out");
+}

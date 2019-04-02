@@ -1,0 +1,99 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include "avlTree.h"
+
+
+int max(int a, int b) {
+    if (a > b) {
+        return a;
+    }
+    else {
+        return b;
+    }
+}
+
+int height(struct node* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    return root->height;
+}
+
+struct node* newNode(int key) {
+    struct node* insertNode = (struct node*)malloc(sizeof(struct node));
+    insertNode->key = key;
+    insertNode->left = NULL;
+    insertNode->right = NULL;
+    insertNode->height = 1;
+    return(insertNode);
+}
+
+struct node* rightRotate(struct node* y) {
+    struct node* x = y->left;
+    struct node* t2 = x->right;
+
+    x->right = y;
+    y->left= t2;
+
+    x->height = max(height(x->left), height(x->right))+1;
+    y->height = max(height(y->left), height(y->right))+1;
+
+    return x;
+}
+
+struct node* leftRotate(struct node* x) {
+    struct node* y = x->right;
+    struct node* t2 = y->left;
+
+    x->right = t2;
+    y->left = x;
+
+    x->height = max(height(x->left), height(x->right))+1;
+    y->height = max(height(y->left), height(y->right))+1;
+
+    return y;
+}
+
+int getBalance(struct node* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    return height(root->left) - height(root->right);
+}
+
+struct node* insert(struct node* node, int key) {
+    if (node == NULL)
+        return(newNode(key));
+
+    if (key < node->key)
+        node->left  = insert(node->left, key);
+    else if (key > node->key)
+        node->right = insert(node->right, key);
+    else
+        return node;
+
+    node->height = max(height(node->left), height(node->right))+1;
+
+    int balance = getBalance(node);
+
+    if (balance > 1 && key < node->left->key)
+        return rightRotate(node);
+
+    if (balance < -1 && key > node->right->key)
+        return leftRotate(node);
+
+    if (balance > 1 && key > node->left->key)
+    {
+        node->left =  leftRotate(node->left);
+        return rightRotate(node);
+    }
+
+    if (balance < -1 && key < node->right->key)
+    {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
+
+    return node;
+}

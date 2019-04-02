@@ -1,3 +1,0 @@
-C:/Users/tjbur/Google Drive/College/Spring 2019/CS 214/Asst2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/tjbur/Google Drive/College/Spring 2019/CS 214/Asst2/cmake-build-debug/CMakeFiles/Asst2.dir
-C:/Users/tjbur/Google Drive/College/Spring 2019/CS 214/Asst2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
