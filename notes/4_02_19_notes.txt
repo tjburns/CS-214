@@ -1,0 +1,69 @@
+Processes
+	abonormal operation
+	Zombies - consumed all executable code, returned, but has not been wait()ed on by parent, so ..
+		still exists as a schduled entity in system; takes up runtime and memory, but can't DO anything
+	Orphans - parent no longer exists in the system
+	.. how t oresolve Zombie Orphans? Have the scheduler (or init) make itself the Proc's parent and call wait() on it
+	.. this is usually done by PID 0 (.. wait .. wtf? this is not forkable)
+
+	PCB - OS metadata about a Process
+
+
+	Signals ... software interrupt .. not necessaryily a problem, but something important to be dealt with >now<
+
+	exit signal ...a Process posts exit after return to indicate it is ready to be reaped
+	can cause it with exit() (or just return from main...)
+	can catch it with atexit()
+
+	return: get out of current stack frame to calling one (i.e. back out of current exec context and restore previous)
+	exit: get out of current process, normally
+	_exit(); WANT OWT NAOW!! (run minimum of code to get out of current Proc .. no exit signal (will not atexit() ))
+
+	kill : send a signal to a Proc, by default, signal to end proc
+	killall: kill all procs with the same name
+
+
+	tracking procs:
+		ps (aux)
+		top
+
+	before testing anything with fork() ... set ulimit
+
+what if you don't need all the resources of a Process, but you need another context ... (thread!)
+
+execution context:
+	stack - stored in main memory (in process address space) .. contains instructions and data (local)
+	registers and PC
+
+allocate some heap space
+format it to look like a stack ... 
+	write instructions in to it
+	write data in to it
+	.. write stored registers and a PC
+	jmp to the new stack
+
+
+
+flavors of threads:
+	user
+	+faster to build
+	+complete control over scheduling
+	-notoriously buggy scheduling
+	-can't share runtime over everything in the system
+	-no true simultaneity
+	-blocking will stop Proc
+
+kernel
+	-slower to build
+	-no control over scheduling
+	+pretty solid scheduling
+	+can share runtime over everything in the system
+	+true simultaneity
+	+blocking will not stop Proc
+
+int pthread_create(
+	thread handle: 				pthread_t *thread
+	thread attributes: 			const pthread_attr_t *attr
+	funtion for thread to run: 	void *(*start_routine) (void *)
+	function's args:			void * arg )
+
