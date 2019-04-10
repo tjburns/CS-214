@@ -21,6 +21,7 @@ Processes
 
 	kill : send a signal to a Proc, by default, signal to end proc
 	killall: kill all procs with the same name
+	(kill(-9) meme)
 
 
 	tracking procs:

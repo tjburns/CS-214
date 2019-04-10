@@ -1,0 +1,57 @@
+stacks vs threads
+	// pic of process address space
+		os
+		code
+		globals
+		stack (arrow down)
+		heap (arrow up)
+
+	single-threaded address space
+
+	multi threaded address space just have MULTIPLE STACK FRAMES //still have all other pieces as listed above
+		followed by the heap at the bottom
+
+Threads:
+	multiple execution contexts in the same Process
+		parallelization (faster/easier access than Procs)
+
+	// big difference between user threads and kernel threads are who schedules them
+	user - scheduled by user
+	no:
+		true simultaneity
+		run while another is blocked
+		time based on # of threads
+	yes:
+		full control
+		fast build, takedown, swap
+
+
+	kernel - scheduled by kernel
+	yes:
+		true simultaneity
+		run while another is blocked
+		time based on # of threads
+	no:
+		full control
+		fast build, takedown, swap
+
+int pthread_create(
+	thread handle:				pthread_t *thread
+	thread attributes:			const pthread_attr_t *attr
+	function for thread to run: void *(*start_routine) (void *)
+	function's args:			void * arg )
+
+
+
+Thread 			Thread B
+mv (%r2) %r3
+incr %r3
+>>mv %r3 (%r2)
+				mv (%r2) %r3
+				incr %r3
+				mv %r3 (%r2)
+//mv %r3 (%r2)
+
+perform one thread and finish it before working on the other thread
+
+mutial exclusion =====> mutex

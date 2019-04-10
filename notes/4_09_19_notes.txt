@@ -1,0 +1,85 @@
+
+Threads...
+	multiple exec contexts in  a given process
+	(>1 stack per proc)
+
+	.. really easy to share data between threads
+	(maybe .. too easy....)
+
+	overwrite:
+		threads can be swapped out at any point in their operation, between any two instructions....
+		.. it takes at least three instructions (on most architectures) to read, modify, and write data to/from memory
+		.. while swapped out, any thread can potentially alter the data you are about to alter..
+		.. then when swapped back in, you overwrite their alternation blindly
+
+	want these blocks of instructions to be 'atomic' .. non-interleavable
+
+	critical selection: region of code where shared data is accessed
+
+
+Mutexes
+use a special hardware instruction...
+(act kind of in a way as to function as a queue)
+
+resolved in call order
+block other contexts from entering the critical section while one context is in it
+- other contexts that try to pthread_mutex_lock() will not return from that call until they have the mutex...
+
+critical sections:
+	wrap in a mutex
+	keep them as short as possible
+	have one mutex per shared variable
+
+
+pthread_mutex_lock(nutex_input_A)
+pthread_mutex_lock(mutex_banana_C)
+input = banana;
+pthread_mutex_unlock(mutex_input_A)
+pthread_mutex_unlock(mutex_banana_C)
+
+
+
+pthread_mutex_lock(mutex_input_A)
+pthread_mutex_lock(mutex_cat_B)
+pthread_mutex_lock(mutex_banana_C)
+cat = input * banana;
+pthread_mutex_unlock(mutex_input_A)
+pthread_mutex_unlock(mutex_cat_B)
+pthread_mutex_unlock(mutex_banana_C)
+
+
+care and use of mutexes:
+	only ever lock in an established order (indicated by tag at end of name)
+	once you unlock, do not ever do another lock
+	(unlock order is insensitive)
+
+BAD things to do with mutex:
+(in the same context)
+lock more than once
+trylock more than once (be careful you don't try to lock a lock you already locked... (heard you liked mutexes...)) 
+unlcock more than once
+unlock a mutex that is not locked...
+
+
+
+
+
+Thread 			Thread B
+
+
+pml(mutex_A)
+++shared;		++shared;
+pmul(mutex_A)
+
+
+--------------------------
+
+
+
+two socket types:
+server - wait for connection requests (no explicit IO)
+regular (client)
+
+IP address
+port #
+
