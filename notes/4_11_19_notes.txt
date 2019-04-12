@@ -1,0 +1,41 @@
+
+Mutex:
+	critical section: section of code where you use shared variables
+	race condition: the result of some update to a shared variable is conditional on which context writes last
+
+	care and use: 
+		1 per shared variable
+		lock all mutexes that correspond to all shared vars in use in a critical section
+		always lock in the same order...
+			ie establish some arbitrary total ordering on your mutexes and be consistent about it
+			rising falling permission phases:
+				for a given critical section ... do all locks, then all unlocks
+					do not do another lock after your first unlock until you have unlocked everything ... then you can start locking again..
+
+					lock(A)
+					lock(B)
+					lock(C)
+					...stuff...
+					unlock(A)
+					unlock(B)
+					lock(A)
+						..oh, by the way..
+					lock(A)
+					unlock(C)
+
+					// don't do this -- just extend the critical section
+					// once you've unlocked once don't lock again until everything else is unlocked
+
+................
+
+
+
+Sockets
+
+IP address:		255.255.255.255 ... cp.cs.rutgers.edu
+port# 			> 8K
+
+				80 HTTP
+				22 SSH
+				23 SCP
+
