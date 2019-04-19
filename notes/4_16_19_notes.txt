@@ -1,0 +1,21 @@
+
+13 			// version number of the given project
+1 afile 9()*)9130	//version number of the given file
+4 afilealso LLK-00-___
+
+...............................................................
+
+
+Sockets
+
+
+Server Socket:
+socket()
+bind()
+listen()
+accept()
+
+Client Socket:
+socket()
+connect()
+
