@@ -1,0 +1,42 @@
+
+[CS214] Exam 1
+2000-2300, 9 May, ARC 103
+
+
+
+
+
+test-and-set: hardware instruction that is often used to implement mutexes
+synch primitive: test-and-set
+synch-mechanism: locks (mutexes)
+
+why hardware instruction? No good software solution
+	USER: make user unblockable? Bad idea ... now OS can't stop user ... ever
+	OS: can safely be uninterrupted ... but  just way too slow
+
+locking:
+data
+
+
+synch on:
+	data:		locking behavior (mutexes)
+	computation:	barriers
+	
+barriers: 
+	initialize with some maximal value
+	all threads that hit barrier increment counter
+		if counter is < max, block
+		if counter == max, ... all waiting threads are unblocked
+
+primitive: fetch-and-incr
+
+
+
+
+condition variables: (synch on arbitrary conditional expressions)
+	initialize with a variable whose value is swapped in a conditional expression
+	if case is not met, block
+	.. else, unblock
+
+primitive: cmd-and-swap
+

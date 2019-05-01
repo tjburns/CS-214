@@ -1,0 +1,39 @@
+
+DNS - Domain Naming Service
+translates domain names into IP addresses
+
+top-level/root
+authoritative
+non-authoritative
+local
+
+IP addresses - network-layer address (router)
+MAC addresses - data link-layer addresses (switch)
+
+TCP: Transmission Control Protocol
+
+0. Reliability		(retransmit lost packets)
+1. Ordering		(maintain packet order)
+2. Flow Control		(moderate packet send rate based on destination's read speed)
+3. Congestion Control 	(moderate packet send rate based on the network speed)
+
+packet = chunk of message
+rount trip time (RTT) = estimated time it takes to get to destination and back again
+
+
+UDP: User Datagram Protocol
+
+*port
+
+
+
+
+no reliability, no ordering.....
+
+.. no idea of 'connection':
+-  must individually address every message
+-  every message must be relayed entirely (no packets)
+-  did it get there? was it fast? idk
+
+
+

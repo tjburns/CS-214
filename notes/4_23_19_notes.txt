@@ -1,0 +1,39 @@
+
+Networking:
+ISO OSI:
+
+
+Layers
+
+Application - the program/user
+Presentation - understand message format, and manipulates it to be useful to next layer 	(en/decryption, en/decompression ...)
+Session - understands message content, and either manipulates it between messages or between sockets 	(connections)
+Transport - message transport over network 	(sockets)
+Net (Networking) - route traffic to provide a link between machines that are not directly connected 	(routers)
+DL (Data Link) - manages a point-to-point link to a machine you are directly connected to 	(switches)
+PHY (Physical) - info (bits) to radiation and vv
+
+Routing ... how do routers build their routes?
+IP address - network layer
+DL address - MAC (Medium Access Control)
+CIDR:
+Network/IP Addr	Data Link/MAC Addr
+123.23.5.1/24	F2:44:12:A4:E2:88
+4.1.5.12/12	F2:34:12:C4:E2:85
+23.124.51.2/32	3D:14:12:E4:E2:88
+
+
+DNS - Domain Name Service
+convert from names to IP addresses...
+hierarchical:
+
+top-level/root (edu, com, org, gov ...)
+authoritative (organizational: att, rutgers, whitehouse)
+non-authorititative (local caching in the network, often provides subdomains)
+local (your cached lookups on your machine)
+
+
+localhost ---> 127.0.0.1
+mean 'this' machine
+
+
