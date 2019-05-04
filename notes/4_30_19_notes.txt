@@ -38,5 +38,68 @@ condition variables: (synch on arbitrary conditional expressions)
 	if case is not met, block
 	.. else, unblock
 
-primitive: cmd-and-swap
+primitive: cmp-and-swap
 
+
+synch:
+purpose			mechanism		primitive
+
+data			lock(mutex)		test-and-set
+computation		barrier			fetch-and-incr
+arbitrary condition	cond var		cmp-and-swap
+
+
+
+Deadlock:
+0. mutual exclusion
+1. hold and wait
+2. no preemption
+3. circular wait
+
+avoiding deadlock
+0. maintain a global ordering on mutexes
+1. rising/falling phase ... once you unlock, do not lock again until you have unlocked everything
+
+
+
+Mutexes:
+super sensitive to ordering .. ust lock, then unlock .. no other pattern m'kay
+	signal handlers can run in any context at any time ... so there is no way to control when they would execute mutex commands (if you were to fool enough to put them in signal handlers)
+super sensitive to identity ... only the thread that locks a mutex can unlock it
+
+
+
+Modification of mutexes .. allow them to lock n times up to a max value, and allow unlock to happen any number of tmies down to 0
+	... if you try to lock at max, block
+	... if you try to unlock at 0, block
+
+
+asynchronous: functions can happen in any order
+
+threadsafe: any context can perform the operation
+
+p()
+v()
+
+
+If I have a semaphore whose max value is 1 ... (binary semaphore) ... do I have a mutex?
+
+
+similar:
+	whomever tries to do the 2nd incrememnt will block if decrement hasn't yet been called
+
+however:
+	will block on decrement
+	the same thread can call incr/decr more than once ... without explosion
+	another thread can unblock you other than the first...
+
+
+
+
+Sometimes... you can't have strict ordering an lock/unlock behavior
+..you might have operations that have to happen in a specific order that opens the possibility of deadlock
+so you need logic rather than direct comparison
+
+Monitor: object-oriented synchronization
+	...give all the synchronization mechanisms (mutexes, barriers, whatever...) to one object and encode their relations with some functions ... 
+	in order to get access to the mechanism, you have to have the monitor say okay
