@@ -1,0 +1,4 @@
+more than one line of text
+will be in this file. 
+hopefully everything gets sent from one socket to the other. 
+from client to the server then the server will open it and send it back to the client to be printed out.	
