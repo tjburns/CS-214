@@ -10,9 +10,11 @@
 #include <netinet/in.h> 
 #include <arpa/inet.h>
 
+
 #define PORT 8609
 
-void configure() // To-do: Write error-checking for this function
+// TODO: Write error-checking for this function
+void configure() 
 {
     char* ip_address_hostname = "";
     char* port_num = "";
@@ -40,7 +42,8 @@ void configure() // To-do: Write error-checking for this function
     }
 }
 
-int checkConfigure() // helper function
+// helper function
+int checkConfigure() 
 {
     int config_fd = 0;
 
@@ -133,7 +136,7 @@ void add(char* projectname, char* filename)
 
 }
 
-void remove(char* projectname, char* filename)
+void wtfremove(char* projectname, char* filename)
 {
 
 }
