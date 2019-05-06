@@ -11,9 +11,20 @@
 #include <sys/socket.h> 
 #include <netinet/in.h> 
 #include <arpa/inet.h>
+#include <openssl/sha.h>
 
 
 #define PORT 8609
+
+int fileSize(char * filename) {
+	int ret = 0;
+	struct stat info;
+	
+	if ((filename != NULL) && (stat(filename, &info) == 0))
+		ret = (int)info.st_size;
+	return ret;
+}
+
 
 // TODO: Write error-checking for this function
 void configure(int argc, char ** argv) 
@@ -111,8 +122,6 @@ char ** checkConfigure()
 
 void checkout(int argc, char ** argv)
 {
-
-
     if (argc != 3)
     {
         fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
@@ -154,7 +163,7 @@ void destroy(char* projectname)
 
 void add(char* projectname, char* filename)
 {
-
+	
 }
 
 void wtfremove(char* projectname, char* filename)
@@ -174,6 +183,10 @@ void history(char* projectname)
 
 void rollback(char* projectname, int version_num)
 {
+
+}
+
+void compress() {
 
 }
 
@@ -256,6 +269,9 @@ int main (int argc, char ** argv) {
 	
 	}
 	else if (strcmp(argv[1], "rollback") == 0) {
+	
+	}
+	else if (strcmp(argv[1], "compress") == 0) {
 	
 	}
 	
