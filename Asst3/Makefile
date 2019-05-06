@@ -1,10 +1,10 @@
-all: wtfserver wtfclient clean
+all: wtfserver wtfclient
 
 wtfserver: wtfserver.c
-	gcc wtfserver.c -o WTFserver -lpthread
+	gcc -std=gnu90 wtfserver.c -o WTFserver -lpthread
 	
 wtfclient: wtfclient.c
-	gcc wtfclient.c -o WTFclient
+	gcc -std=gnu90 wtfclient.c -o WTF
 
 clean:
-	rm WTFserver WTFclient
+	rm WTFserver WTF
