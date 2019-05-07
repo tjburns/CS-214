@@ -13,19 +13,29 @@
 #include <signal.h>
 
 
+pthread_mutex_t lock;
+
 // catches Ctrl+C input
 //TODO close all threads, sockets, and fds
 void sigIntHandler(int sig_num) {
+	
 	signal(SIGINT, sigIntHandler);
+
+
 	printf("\n\nSERVER CLOSED.\n");
 	exit(0);
 }
 
 void * connection_handler(void * socket_desc) {
+	
+	// lock the current thread with global mutex when operations are being done on server
+	pthread_mutex_lock(&lock);	
 
 	int sock = *(int *) socket_desc;
 	
 
+	// unlock mutex when operation is complete
+	pthread_mutex_unlock(&lock);
 }
 
 int main(int argc, char ** argv) {
@@ -70,7 +80,7 @@ int main(int argc, char ** argv) {
 		exit(1);
 	}
 	// max connections pending is 3 here
-	if (listen(server_fd, 3) < 0) {
+	if (listen(server_fd, 20) < 0) {
 		perror("listen");
 		exit(1);
 	}

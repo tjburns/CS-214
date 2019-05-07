@@ -11,7 +11,7 @@
 #include <sys/socket.h> 
 #include <netinet/in.h> 
 #include <arpa/inet.h>
-#include <openssl/sha.h>
+//#include <openssl/sha.h>
 
 
 #define PORT 8609
@@ -27,23 +27,24 @@ int fileSize(char * filename) {
 
 
 // TODO: Write error-checking for this function
-void configure(int argc, char ** argv) 
+void wtfconfigure(int argc, char ** argv) 
 {
-    char* ip_address_hostname = "";
-    char* port_num = "";
+    char* ip_address_hostname = (char*)malloc(strlen(argv[2]) * sizeof(char));
+    char* port_num = (char*)malloc(strlen(argv[3]) * sizeof(char));
     char* delimiter = "\n";
     int config_fd = 0;
-    char* server_info = "";
+    char* server_info = (char*)malloc((strlen(argv[2])+5+strlen(argv[3])) * sizeof(char));
 
     if (argc != 4)
     {
-        fprintf(stderr, "Error: incorrect number of arguments given. 4 arguments expected.");
+        fprintf(stderr, "Error: incorrect number of arguments given. 4 arguments expected.\n");
         exit(1);
     }
     else
     {
-        ip_address_hostname = argv[2];
-        port_num = argv[3];
+        strcpy(ip_address_hostname, argv[2]);
+        strcpy(port_num, argv[3]);
+        printf("ip: %s\nport: %s\n", ip_address_hostname, port_num);
 		int port = atoi(port_num);
 		
 		if (port < 0 || port > 65535) {
@@ -56,7 +57,8 @@ void configure(int argc, char ** argv)
         strcat(server_info, port_num);
 
         config_fd = open(".configure", O_CREAT | O_RDWR, S_IRGRP | S_IWGRP);
-        write(config_fd, server_info, sizeof(server_info));
+        printf(".configure file created\n");
+        write(config_fd, server_info, strlen(server_info));
         close(config_fd);
     }
 }
@@ -81,8 +83,7 @@ char ** checkConfigure()
 
     if (config_fd == -1)
     {
-        fprintf(stderr, "Error: file could not be opened.\n");
-        exit(1);
+        printf("Configure has not been called yet.\n");
     }
     else
     {
@@ -104,13 +105,17 @@ char ** checkConfigure()
 
 		i = 0;
         char * tok = strtok(filebuffer, "\n");
-        
         while (tok != NULL) {
         	config_tokens[i] = tok;
+        	i++;
         	tok = strtok(NULL, "\n");
         }
-
-        if (config_tokens[0] == NULL || config_tokens[1] != NULL)
+	
+		for(i = 0; i < 2; i++) {
+			printf("token[%d]: %s\n", i, config_tokens[i]);
+		}
+		
+        if (config_tokens[0] == NULL || config_tokens[1] == NULL)
         {
             fprintf(stderr, "Error: Server information could not be fetched from .configure file.\n");
             exit(1);
@@ -225,11 +230,13 @@ int main (int argc, char ** argv) {
 	
 	if (argc < 3) {
 		fprintf(stderr, "Incorrect number of command line arguments.\n");
+		exit(1);
 	}
 	
 	// determine client operation
 	if (strcmp(argv[1], "configure") == 0) {
-		configure(argc, argv);
+		wtfconfigure(argc, argv);
+		return 0;
 	}
 	
 	// connect to wtf using configured ip and port
@@ -273,6 +280,9 @@ int main (int argc, char ** argv) {
 	}
 	else if (strcmp(argv[1], "compress") == 0) {
 	
+	}
+	else {
+		fprintf(stderr, "No client command give to the client side WTF client.\n");
 	}
 	
 	return 0;
