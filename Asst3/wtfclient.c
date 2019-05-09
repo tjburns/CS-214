@@ -1,3 +1,5 @@
+// CS 214 – Systems Programming, Asst3
+// Created by Tom Burns and Andrew Dulichan on May 6, 2019
 
 #include <stdio.h> 
 #include <stdlib.h> 
@@ -27,7 +29,7 @@ int fileSize(char * filename) {
 
 
 // TODO: Write error-checking for this function
-void wtfconfigure(int argc, char ** argv) 
+void wtfconfigure(int argc, char** argv) 
 {
     char* ip_address_hostname = (char*)malloc(strlen(argv[2]) * sizeof(char));
     char* port_num = (char*)malloc(strlen(argv[3]) * sizeof(char));
@@ -56,7 +58,7 @@ void wtfconfigure(int argc, char ** argv)
         strcat(server_info, delimiter);
         strcat(server_info, port_num);
 
-        config_fd = open(".configure", O_CREAT | O_RDWR, S_IRGRP | S_IWGRP);
+        config_fd = open(".configure", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
         printf(".configure file created\n");
         write(config_fd, server_info, strlen(server_info));
         close(config_fd);
@@ -69,13 +71,18 @@ char ** checkConfigure()
 	char ** config_tokens;
 	config_tokens = (char**) malloc(10 * sizeof(char*));
 	int i = 0, j = 0;
-	for (i = 0; i < 10; i++) {
+
+	for (i = 0; i < 10; i++)
+	{
 		config_tokens[i] = (char*)malloc(100 * sizeof(char));
 	}
-	for (i = 0; i < 10; i++) {
+
+	for (i = 0; i < 10; i++)
+	{
 		for (j = 0; j < 100; j++)
 			config_tokens[i][j] = 0;
 	}
+
     int config_fd = 0;
     int status = 0;
 
@@ -111,7 +118,7 @@ char ** checkConfigure()
         	tok = strtok(NULL, "\n");
         }
 	
-		for(i = 0; i < 2; i++) {
+		for (i = 0; i < 2; i++) {
 			printf("token[%d]: %s\n", i, config_tokens[i]);
 		}
 		
@@ -125,78 +132,131 @@ char ** checkConfigure()
     return config_tokens;
 }
 
-void checkout(int argc, char ** argv)
+void checkout(int argc, char** argv)
 {
+	
     if (argc != 3)
     {
         fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
         exit(1);
     }
-
-    //if ( || checkConfigure() == 1)
-}
-
-void update(char* projectname)
-{
-
-}
-
-void upgrade(char* projectname)
-{
-
-}
-
-void commit(char* projectname)
-{
-
-}
-
-void push(char* projectname)
-{
-
-}
-
-void create(char* projectname)
-{
-
-}
-
-void destroy(char* projectname)
-{
-
-}
-
-void add(char* projectname, char* filename)
-{
 	
 }
 
-void wtfremove(char* projectname, char* filename)
+void update(int argc, char** argv)
 {
-
-}
-
-void currentversion(char* projectname)
-{
-
-}
-
-void history(char* projectname)
-{
-
-}
-
-void rollback(char* projectname, int version_num)
-{
-
-}
-
-void compress() {
-
-}
-
-int wtfconnect() {
 	
+    if (argc != 3)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
+        exit(1);
+    }
+}
+
+void upgrade(int argc, char** argv)
+{
+	
+    if (argc != 3)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
+        exit(1);
+    }
+}
+
+void commit(int argc, char** argv)
+{
+	
+    if (argc != 3)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
+        exit(1);
+    }
+}
+
+void push(int argc, char** argv)
+{
+	
+    if (argc != 3)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
+        exit(1);
+    }
+}
+
+void create(int argc, char** argv)
+{
+	
+	if (argc != 3)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
+        exit(1);
+    }
+}
+
+void destroy(int argc, char** argv)
+{
+	
+	if (argc != 3)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
+        exit(1);
+	}
+}
+
+void add(int argc, char** argv)
+{
+	if (argc != 4)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 4 arguments expected.");
+        exit(1);
+	}
+}
+
+void wtfremove(int argc, char** argv)
+{
+	if (argc != 4)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 4 arguments expected.");
+        exit(1);
+	}
+}
+
+void currentversion(int argc, char** argv)
+{
+	if (argc != 3)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
+        exit(1);
+	}
+}
+
+void history(int argc, char** argv)
+{
+	
+	if (argc != 3)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 3 arguments expected.");
+        exit(1);
+	}
+}
+
+void rollback(int argc, char** argv)
+{
+	
+	if (argc != 4)
+    {
+        fprintf(stderr, "Error: incorrect number of arguments given. 4 arguments expected.");
+        exit(1);
+	}
+}
+
+void compress()
+{
+	// To be added
+}
+
+int wtfconnect()
+{
 	char ** config_content = checkConfigure();
 	// config_content[0] is server ip
 	// config_content[1] is server port
@@ -207,7 +267,7 @@ int wtfconnect() {
 	
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) <= 0) {
 		fprintf(stderr, "\nSocket creation error\n");
-		exit(1);
+		return 1;
 	}
 	
 	memset(&serv_addr, '0', sizeof(serv_addr));
@@ -216,14 +276,13 @@ int wtfconnect() {
 	
 	if (inet_pton(AF_INET, config_content[0], &serv_addr.sin_addr) <= 0) {
 		fprintf(stderr, "Invalid address/Address not supported.\n");
-		exit(1);
+		return 1;
 	}
 	
 	if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
 		fprintf(stderr, "Connection failed\n");
-		exit(1);
+		return 1;
 	}
-	
 }
 
 int main (int argc, char ** argv) {
@@ -242,47 +301,61 @@ int main (int argc, char ** argv) {
 	// connect to wtf using configured ip and port
 	int sock = wtfconnect();
 	
-	if (strcmp(argv[1], "checkout") == 0) {
+	if (strcmp(argv[1], "checkout") == 0)
+	{
 		checkout(argc, argv);
 	}
-	else if (strcmp(argv[1], "update") == 0) {
-	
+	else if (strcmp(argv[1], "update") == 0)
+	{
+		update(argc, argv);
 	}
-	else if (strcmp(argv[1], "upgrade") == 0) {
-	
+	else if (strcmp(argv[1], "upgrade") == 0)
+	{
+		upgrade(argc, argv);
 	}
-	else if (strcmp(argv[1], "commit") == 0) {
-	
+	else if (strcmp(argv[1], "commit") == 0)
+	{
+		commit(argc, argv);
 	}
-	else if (strcmp(argv[1], "push") == 0) {
-	
+	else if (strcmp(argv[1], "push") == 0)
+	{
+		push(argc, argv);
 	}
-	else if (strcmp(argv[1], "create") == 0) {
-	
+	else if (strcmp(argv[1], "create") == 0)
+	{
+		create(argc, argv);
 	}
-	else if (strcmp(argv[1], "destroy") == 0) {
-	
+	else if (strcmp(argv[1], "destroy") == 0)
+	{
+		destroy(argc, argv);
 	}
-	else if (strcmp(argv[1], "add") == 0) {
-	
+	else if (strcmp(argv[1], "add") == 0)
+	{
+		add(argc, argv);
 	}
-	else if (strcmp(argv[1], "remove") == 0) {
-	
+	else if (strcmp(argv[1], "remove") == 0)
+	{
+		wtfremove(argc, argv);
 	}
-	else if (strcmp(argv[1], "currentversion") == 0) {
-	
+	else if (strcmp(argv[1], "currentversion") == 0)
+	{
+		currentversion(argc, argv);
 	}
-	else if (strcmp(argv[1], "history") == 0) {
-	
+	else if (strcmp(argv[1], "history") == 0)
+	{
+		history(argc, argv);
 	}
-	else if (strcmp(argv[1], "rollback") == 0) {
-	
+	else if (strcmp(argv[1], "rollback") == 0)
+	{
+		rollback(argc, argv);
 	}
-	else if (strcmp(argv[1], "compress") == 0) {
-	
+	else if (strcmp(argv[1], "compress") == 0)
+	{
+		// To be added
 	}
-	else {
-		fprintf(stderr, "No client command give to the client side WTF client.\n");
+	else
+	{
+		fprintf(stderr, "No client commands given to the client side WTF client.\n");
 	}
 	
 	return 0;

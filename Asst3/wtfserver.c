@@ -1,3 +1,6 @@
+// CS 214 - Systems Programming, Asst3
+// Created by Tom Burns and Andrew Dulichan on May 6, 2019
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

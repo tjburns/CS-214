@@ -1,0 +1,40 @@
+Created by Tom Burns and Andrew Dulichan
+05/06/2019
+CS 214 Systems Programming
+Asst3 testcases
+
+Ideally if we had finished the entirety of the WTF client and server this is how we would go about testing all of their intended functionalities.
+
+Of course we would have methods for each of the the tests we planned on running, then fork() and exec() those processes so that they are run autonomously.  This in itself would take a decent amount of time and testing for each test that is designed for the WTF project.
+
+The tests we would plan to write up as processes:
+	1. Proper Utilization of Client and Server side methods. 
+			-configure the client side
+			-create a project - "PROJECT" for ex
+			-send files using add, then commit, and finally push
+			-check the current version of the project
+			-make some new files on the client side of the project
+			-call update
+			-add more files (add, commit, push)
+			-remove some of the files in the project
+			-add files in subdirectories (through add, commit, push) and make sure that the files in it are maintained
+			-call history again
+			-call update again
+			-call rollback (to get to a previous version)
+			-delete the project on the client side
+			-call checkout on PROJECT
+			-call upgrade to check if the .upgrade still is present at this point on server side
+			-destroy the project on the server side 
+			-call some of the methods above to ensure its deletion
+			-push the project back onto the server
+			-call history and currentversion to ensure the project has been maintained correctly throughout the entire processes
+			
+The above would test all of the functionalities of the server and ensure that the proper use of the client commands and their intended effects on the server side are observed.  Any issues with this would be a rather grevious error as this methodology would be expecting proper input to test ideal conditions and proper functionality.
+
+	2. Test edge cases and situations arising from potential problems
+		a. Test for deadlock
+		b. Test for deletion of a project and pushing/reading/pulling files from a different thread
+		c. Test for pushing a project while requesting one - order of threads and their function's operations
+		d. Confirm the server does not have a limit to the number of connections that can be made - connect and disconnect repeatedly until SegFault of termination
+		e. Check for irregular files being sent - edge cases of file reading and writing (delimiters used in file, etc)
+		etc edge cases 
